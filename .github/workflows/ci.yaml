@@ -34,4 +34,4 @@ jobs:
       
       - name: Install yamls
         run: |
-          kubectl apply -f 01-db-pvc.yaml
+          kubectl apply -f .
