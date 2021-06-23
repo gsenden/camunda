@@ -17,11 +17,13 @@ spec:
       containers:
         - name: camunda-db
           image: postgres:13.3
-          env:
+          env:     
+          - name: POSTGRES_DB
+            value: "process-engine"
           - name: POSTGRES_USER
             value: "#{DB_USER}#"
           - name: POSTGRES_PASSWORD
-            value: "#{DB_PASSWORD}#"
+            value: "#{DB_USER}#"
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: camunda-db-volume
