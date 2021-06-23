@@ -29,6 +29,8 @@ jobs:
           STORAGE_ACCESS_MODE: ${{secrets.STORAGE_ACCESS_MODE}}
           STORAGE_CLASS: ${{secrets.STORAGE_CLASS}}
           STORAGE_SIZE: ${{secrets.STORAGE_SIZE}}
+          DB_USER: ${{secrets.DB_USER}}
+          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
       
       - name: Install yamls
         run: |

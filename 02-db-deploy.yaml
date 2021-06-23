@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: camunda-db
+  labels:
+    app: camunda-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: camunda-db
+  template:
+    metadata:
+      labels:
+        app: camunda-db
+    spec:
+      containers:
+        - name: camunda-db
+          image: postgres:13.3
+          env:
+          - name: POSTGRES_USER
+            value: "#{DB_USER}#"
+          - name: POSTGRES_PASSWORD
+            value: "#{DB_PASSWORD}#"
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: camunda-db-volume
+      volumes:
+        - name: camunda-db-volume
+          persistentVolumeClaim:
+            claimName: camunda-db-claim
