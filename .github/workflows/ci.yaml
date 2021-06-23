@@ -31,6 +31,7 @@ jobs:
           STORAGE_SIZE: ${{secrets.STORAGE_SIZE}}
           DB_USER: ${{secrets.DB_USER}}
           DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+          DOMAIN: ${{secrets.DOMAIN}}
       
       - name: Install yamls
         run: |

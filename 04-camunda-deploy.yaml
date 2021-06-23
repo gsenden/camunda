@@ -26,7 +26,3 @@ spec:
             value: #{DB_USER}#
           - name: DB_PASSWORD
             value: #{DB_USER}#
-
-
-          
-          
