@@ -35,9 +35,9 @@ jobs:
         run: |
           kubectl apply -f ./*pvc.yaml
 
-      - name: Copy config file into configuration folder
-        run: |
-          POD="$(kubectl get pods | awk '{print $1}' | grep sabnzbd)"
-          kubectl cp ./sabnzbd.ini $POD:/config/sabnzbd.ini
+      # - name: Copy config file into configuration folder
+      #   run: |
+      #     POD="$(kubectl get pods | awk '{print $1}' | grep sabnzbd)"
+      #     kubectl cp ./sabnzbd.ini $POD:/config/sabnzbd.ini
 
       
