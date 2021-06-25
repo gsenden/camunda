@@ -1,0 +1,43 @@
+name: CI-camunda-zeebe
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Kubernetes set context
+        uses: Azure/k8s-set-context@v1.1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      - name: Replace tokens in yaml files
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["**/*.yaml"]'
+        env:
+          STORAGE_ACCESS_MODE: ${{secrets.STORAGE_ACCESS_MODE}}
+          STORAGE_CLASS: ${{secrets.STORAGE_CLASS}}
+          STORAGE_SIZE: ${{secrets.STORAGE_SIZE}}
+          DOMAIN: ${{secrets.DOMAIN}}
+      
+      - name: Install pvc's
+        run: |
+          kubectl apply -f ./*pvc.yaml
+
+      - name: Copy config file into configuration folder
+        run: |
+          POD="$(kubectl get pods | awk '{print $1}' | grep sabnzbd)"
+          kubectl cp ./sabnzbd.ini $POD:/config/sabnzbd.ini
+
+      

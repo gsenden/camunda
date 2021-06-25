@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: camunda-config-init
+  labels:
+    app: camunda-config-init
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: camunda-config-init
+  template:
+    metadata:
+      labels:
+        app: camunda-config-init
+    spec:
+      containers:
+        - name: camunda-config-init
+          image: busybox
+        volumeMounts:
+        - name: config-folder
+          mountPath: /usr/local/zeebe/config
+          subPath: camunda-zeebe
+          # env:
+          # - name: DB_DRIVER
+          #   value: org.postgresql.Driver
+      volumes:
+      - name: config-folder
+        persistentVolumeClaim:
+          claimName: camunda-zeebe-config-pvc
