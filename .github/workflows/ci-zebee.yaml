@@ -33,7 +33,9 @@ jobs:
       
       - name: Install pvc's
         run: |
-          kubectl apply -f ./*pvc.yaml
+          kubectl apply -f 01-camunda-zebee-pvc.yaml
+          kubectl apply -f 02-camunda-zebee-config-pvc.yaml
+          kubectl apply -f 03-camunda-zebee-elasticsearch-pvc.yaml
 
       # - name: Copy config file into configuration folder
       #   run: |
