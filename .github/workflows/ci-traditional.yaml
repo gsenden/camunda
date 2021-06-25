@@ -1,4 +1,4 @@
-name: CI
+name: CI-traditional-camunda
 
 on:
   # push:
