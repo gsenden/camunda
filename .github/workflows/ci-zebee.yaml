@@ -30,16 +30,18 @@ jobs:
           STORAGE_CLASS: ${{secrets.STORAGE_CLASS}}
           STORAGE_SIZE: ${{secrets.STORAGE_SIZE}}
           DOMAIN: ${{secrets.DOMAIN}}
-      
-      - name: Install pvc's
-        run: |
-          kubectl apply -f 01-camunda-zebee-pvc.yaml
-          kubectl apply -f 02-camunda-zebee-config-pvc.yaml
-          kubectl apply -f 03-camunda-zebee-elasticsearch-pvc.yaml
 
-      # - name: Copy config file into configuration folder
+      - name: Copy config file into configuration folder
+        run: |
+          kubectl apply -f init/init-camunda-zebee.yaml
+          POD="$(kubectl get pods | awk '{print $1}' | grep init-camunda-zebee)"
+          kubectl cp ./zeebe-config.yaml $POD:/usr/local/zeebe/config/application.yaml
+          kubectl delete -f init/init-camunda-zebee.yaml
+
+      # - name: Install pvc's
       #   run: |
-      #     POD="$(kubectl get pods | awk '{print $1}' | grep sabnzbd)"
-      #     kubectl cp ./sabnzbd.ini $POD:/config/sabnzbd.ini
+      #     kubectl apply -f pvc-camunda-zebee-elasticsearch.yaml
+      #     kubectl apply -f pvc-camunda-zebee-elasticsearch.yaml
+
 
       

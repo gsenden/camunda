@@ -91,7 +91,7 @@ zeebe:
         className: io.camunda.zeebe.exporter.ElasticsearchExporter
 
         args:
-          url: http://camunda-zeebe-elasticsearch-service:9200
+          url: http://service-camunda-zeebe-elasticsearch:9200
 
           bulk:
             delay: 5
