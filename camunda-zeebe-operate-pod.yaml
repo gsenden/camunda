@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: camunda-zeebe-operate-pod
+  labels:
+    app: camunda-zeebe-operate-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: camunda-zeebe-operate-pod
+  template:
+    metadata:
+      labels:
+        app: camunda-zeebe-operate-pod
+    spec:
+      containers:
+      - name: camunda-zeebe-operate-pod
+        image: camunda/operate:1.0.0
+        volumeMounts:
+        - name: config-folder
+          mountPath: /usr/local/operate/config
+          subPath: camunda-zeebe-operate
+      volumes:
+      - name: config-folder
+        persistentVolumeClaim:
+          claimName: config-pvc

@@ -47,6 +47,16 @@ jobs:
           kubectl apply -f camunda-zeebe-pod.yaml
           kubectl apply -f camunda-zeebe-service.yaml
 
+      - name: Install camunda-zeebe-operate
+        run: |
+          kubectl apply -f init/init-camunda-zeebe-operate.yaml
+          POD="$(kubectl get pods | awk '{print $1}' | grep init-camunda-zeebe-operate)"
+          kubectl cp ./zeebe-operate-config.yaml $POD:/usr/local/operate/config/application.yaml
+          kubectl delete deployment init-camunda-zeebe-operate
+          kubectl apply -f camunda-zeebe-operate-pod.yaml
+          kubectl apply -f camunda-zeebe-operate-service.yaml
+
+
 
 
           

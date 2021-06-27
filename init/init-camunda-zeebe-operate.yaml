@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: init-camunda-zeebe-operate
+  labels:
+    app: init-camunda-zeebe-operate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: init-camunda-zeebe-operate
+  template:
+    metadata:
+      labels:
+        app: init-camunda-zeebe-operate
+    spec:
+
+      containers:
+      - name: init-camunda-zeebe-operate
+        image: alpine:latest
+        command: ["top"]
+        volumeMounts:
+        - name: config-folder
+          mountPath: /usr/local/operate/config
+          subPath: camunda-zeebe-operate
+      volumes:
+      - name: config-folder
+        persistentVolumeClaim:
+          claimName: config-pvc
