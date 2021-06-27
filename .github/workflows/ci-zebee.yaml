@@ -31,17 +31,25 @@ jobs:
           STORAGE_SIZE: ${{secrets.STORAGE_SIZE}}
           DOMAIN: ${{secrets.DOMAIN}}
 
-      - name: Copy config file into configuration folder
+      - name: Install elasticsearch
         run: |
+          kubectl apply -f elasticsearch-camunda-zeebe-pvc.yaml
+          kubectl apply -f elasticsearch-camunda-zeebe-pod.yaml
+          kubectl apply -f elasticsearch-camunda-zeebe-service.yaml
+
+      - name: Install camunda-zeebe
+        run: |
+          kubectl apply -f camunda-zebee-config-pvc.yaml
+          
           kubectl apply -f init/init-camunda-zebee.yaml
           POD="$(kubectl get pods | awk '{print $1}' | grep init-camunda-zebee)"
           kubectl cp ./zeebe-config.yaml $POD:/usr/local/zeebe/config/application.yaml
-          kubectl delete -f init/init-camunda-zebee.yaml
 
-      # - name: Install pvc's
-      #   run: |
-      #     kubectl apply -f pvc-camunda-zebee-elasticsearch.yaml
-      #     kubectl apply -f pvc-camunda-zebee-elasticsearch.yaml
+          kubectl apply -f camunda-zebee-pvc.yaml
+
+
+          # kubectl delete -f init/init-camunda-zebee.yaml
+
 
 
       
