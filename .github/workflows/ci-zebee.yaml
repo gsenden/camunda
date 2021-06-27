@@ -39,13 +39,13 @@ jobs:
 
       - name: Install camunda-zeebe
         run: |
-          kubectl apply -f init/init-camunda-zebee.yaml
+          kubectl apply -f init/init-camunda-zeebe.yaml
           POD="$(kubectl get pods | awk '{print $1}' | grep init-camunda-zebee)"
           kubectl cp ./zeebe-config.yaml $POD:/usr/local/zeebe/config/application.yaml
           kubectl delete -f init/init-camunda-zebee.yaml
-          kubectl apply -f camunda-zebee-pvc.yaml
-          kubectl apply -f camunda-zebee-pod.yaml
-          kubectl apply -f camunda-zebee-service.yaml
+          kubectl apply -f camunda-zeebe-pvc.yaml
+          kubectl apply -f camunda-zeebe-pod.yaml
+          kubectl apply -f camunda-zeebe-service.yaml
 
 
 
