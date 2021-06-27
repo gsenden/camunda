@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: init-camunda-zebee
+  name: init-camunda-zeebe
   labels:
-    app: init-camunda-zebee
+    app: init-camunda-zeebe
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: init-camunda-zebee
+      app: init-camunda-zeebe
   template:
     metadata:
       labels:
-        app: init-camunda-zebee
+        app: init-camunda-zeebe
     spec:
 
       containers:
-      - name: init-camunda-zebee
+      - name: init-camunda-zeebe
         image: alpine:latest
         command: ["top"]
         volumeMounts:
