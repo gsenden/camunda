@@ -25,9 +25,9 @@ spec:
           - name: ES_JAVA_OPTS
             value: "-Xms512m -Xmx512m"
         volumeMounts:
-        - name: zeebe_elasticsearch_data
+        - name: elasticsearch-camunda-zeebe-pvc
           mountPath: /usr/share/elasticsearch/data
       volumes:
-      - name: zeebe_elasticsearch_data
+      - name: elasticsearch-camunda-zeebe-pvc
         persistentVolumeClaim:
           claimName: elasticsearch-camunda-zeebe-pvc
