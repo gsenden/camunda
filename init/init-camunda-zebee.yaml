@@ -26,4 +26,4 @@ spec:
       volumes:
       - name: config-folder
         persistentVolumeClaim:
-          claimName: camunda-zebee-config-pvc
+          claimName: config-pvc

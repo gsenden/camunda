@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: camunda-zeebe-service
+spec:
+  selector:
+    app: camunda-zeebe-pod
+  ports:
+    - protocol: TCP
+      port: 26500
+      targetPort: 26500
+    - protocol: TCP
+      port: 9600
+      targetPort: 9600

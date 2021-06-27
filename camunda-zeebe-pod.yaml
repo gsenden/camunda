@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: camunda-zeebe-pod
+  labels:
+    app: camunda-zeebe-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: camunda-zeebe-pod
+  template:
+    metadata:
+      labels:
+        app: camunda-zeebe-pod
+    spec:
+      containers:
+      - name: camunda-zeebe-pod
+        image: camunda/zeebe:1.0.0
+        env:
+          - name: ZEEBE_LOG_LEVEL
+            value: "debug"
+        volumeMounts:
+        - name: config-folder
+          mountPath: /usr/local/zeebe/config
+          subPath: camunda-zeebe
+        - name: camunda-zeebe-pvc
+          mountPath: /usr/local/zeebe/data
+      volumes:
+      - name: config-folder
+        persistentVolumeClaim:
+          claimName: config-pvc
+      - name: camunda-zeebe-pvc
+        persistentVolumeClaim:
+          claimName: camunda-zeebe-pvc
+      
