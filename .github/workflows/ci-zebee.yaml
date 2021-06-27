@@ -43,9 +43,9 @@ jobs:
           POD="$(kubectl get pods | awk '{print $1}' | grep init-camunda-zeebe)"
           kubectl cp ./zeebe-config.yaml $POD:/usr/local/zeebe/config/application.yaml
           kubectl delete -f init/init-camunda-zeebe.yaml
-          kubectl apply -f camunda-zeebe-pvc.yaml
-          kubectl apply -f camunda-zeebe-pod.yaml
-          kubectl apply -f camunda-zeebe-service.yaml
+          # kubectl apply -f camunda-zeebe-pvc.yaml
+          # kubectl apply -f camunda-zeebe-pod.yaml
+          # kubectl apply -f camunda-zeebe-service.yaml
 
 
 
