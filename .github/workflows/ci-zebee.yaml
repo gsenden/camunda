@@ -55,6 +55,7 @@ jobs:
           kubectl delete deployment init-camunda-zeebe-operate
           kubectl apply -f camunda-zeebe-operate-pod.yaml
           kubectl apply -f camunda-zeebe-operate-service.yaml
+          kubectl apply -f camunda-zeebe-operate-ingress.yaml
 
 
 
